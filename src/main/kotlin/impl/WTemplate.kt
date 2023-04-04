@@ -25,7 +25,7 @@ class WTemplate(private val template: TCTemplate) : Template {
         return template.steps.map { WStep(it) }
     }
 
-    override fun getParam(resolved: ResolvedMod): List<Param> {
+    override fun getParam(resolved: Boolean): List<Param> {
         return template.params.map { WParam(it.name, it.value) }
     }
 

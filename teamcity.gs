@@ -96,6 +96,6 @@ object Rule: string
 
 filter Clean: bool
 
-modifier resolved
+modifier resolved : bool(false)
 
-modifier withInherited
+modifier withInherited : bool(false)

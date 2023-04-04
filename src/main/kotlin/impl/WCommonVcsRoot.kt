@@ -14,7 +14,7 @@ abstract class WCommonVcsRoot : CommonVcsRoot {
         return WName(vcsRoot.name)
     }
 
-    override fun getParam(resolved: ResolvedMod): List<Param> {
+    override fun getParam(resolved: Boolean): List<Param> {
         return vcsRoot.params.map { WParam(it.name, it.value) }
     }
 

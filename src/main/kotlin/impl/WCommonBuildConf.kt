@@ -14,15 +14,15 @@ abstract class WCommonBuildConf : CommonBuildConf {
         return WName(buildConf.name)
     }
 
-    override fun getTrigger(withinherited: WithInheritedMod): List<Trigger> {
+    override fun getTrigger(withInherited: Boolean): List<Trigger> {
         return buildConf.triggers.map { WTrigger(it) }
     }
 
-    override fun getStep(withinherited: WithInheritedMod): List<Step> {
+    override fun getStep(withInherited: Boolean): List<Step> {
         return buildConf.steps.map { WStep(it) }
     }
 
-    override fun getParam(withinherited: WithInheritedMod, resolved: ResolvedMod): List<Param> {
+    override fun getParam(withInherited: Boolean, resolved: Boolean): List<Param> {
         return buildConf.params.map { WParam(it.name, it.value) }
     }
 
