@@ -1,7 +1,6 @@
 package impl
 
-import gen.searchQL.Trigger
-import gen.searchQL.Type
+import gen.searchQL.objects.*
 import teamCity.objects.TCTrigger
 
 class WTrigger(val trig: TCTrigger) : Trigger {

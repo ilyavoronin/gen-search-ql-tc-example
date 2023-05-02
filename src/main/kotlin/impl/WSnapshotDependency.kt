@@ -1,7 +1,6 @@
 package impl
 
-import gen.searchQL.Option
-import gen.searchQL.SnapshotDependency
+import gen.searchQL.objects.*
 import teamCity.objects.TCSnapshotDependency
 
 class WSnapshotDependency(private val snapshotDependency: TCSnapshotDependency?): SnapshotDependency {

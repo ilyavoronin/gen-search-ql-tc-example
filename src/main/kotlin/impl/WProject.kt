@@ -1,8 +1,7 @@
 package impl
 
-import gen.searchQL.*
+import gen.searchQL.objects.*
 import teamCity.objects.TCProject
-import teamCity.objects.TCVcsRoot
 
 class WProject(private val tcProject: TCProject) : Project {
     override fun getId(): Id {

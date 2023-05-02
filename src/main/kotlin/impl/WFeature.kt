@@ -1,7 +1,6 @@
 package impl
 
-import gen.searchQL.Feature
-import gen.searchQL.Type
+import gen.searchQL.objects.*
 import teamCity.objects.TCFeature
 
 class WFeature(private val feature: TCFeature) : Feature {

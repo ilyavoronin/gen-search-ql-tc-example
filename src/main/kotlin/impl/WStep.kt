@@ -1,7 +1,6 @@
 package impl
 
-import gen.searchQL.Step
-import gen.searchQL.Type
+import gen.searchQL.objects.*
 import teamCity.objects.TCStep
 
 class WStep(val step: TCStep) : Step {

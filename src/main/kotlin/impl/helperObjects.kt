@@ -1,6 +1,6 @@
 package impl
 
-import gen.searchQL.*
+import gen.searchQL.objects.*
 
 class WId(private val id: String) : Id {
     override fun getString(): String {

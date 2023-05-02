@@ -1,7 +1,7 @@
 package impl
 
-import gen.searchQL.ArtifactDependency
-import gen.searchQL.Rule
+import gen.searchQL.objects.ArtifactDependency
+import gen.searchQL.objects.Rule
 import teamCity.objects.TCArtifactDependency
 
 class WArtitifactDep(private val dep: TCArtifactDependency): ArtifactDependency {

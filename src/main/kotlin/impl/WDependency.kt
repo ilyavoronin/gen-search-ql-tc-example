@@ -1,8 +1,6 @@
 package impl
 
-import gen.searchQL.ArtifactDependency
-import gen.searchQL.Dependency
-import gen.searchQL.SnapshotDependency
+import gen.searchQL.objects.*
 import teamCity.objects.TCArtifactDependency
 import teamCity.objects.TCBuildConf
 import teamCity.objects.TCSnapshotDependency

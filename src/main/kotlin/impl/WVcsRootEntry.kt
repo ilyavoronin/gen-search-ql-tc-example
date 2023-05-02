@@ -1,7 +1,6 @@
 package impl
 
-import gen.searchQL.Rule
-import gen.searchQL.VcsRootEntry
+import gen.searchQL.objects.*
 import teamCity.objects.TCVcsRoot
 
 class WVcsRootEntry(override val vcsRoot: TCVcsRoot): WCommonVcsRoot(), VcsRootEntry {

@@ -1,7 +1,6 @@
 package impl
 
-import gen.searchQL.*
-import teamCity.objects.TCFeature
+import gen.searchQL.objects.*
 import teamCity.objects.TCTemplate
 
 class WTemplate(private val template: TCTemplate) : Template {

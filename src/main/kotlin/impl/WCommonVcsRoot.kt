@@ -2,6 +2,7 @@ package impl
 
 import gen.searchQL.*
 import teamCity.objects.TCVcsRoot
+import gen.searchQL.objects.*
 
 abstract class WCommonVcsRoot : CommonVcsRoot {
     abstract val vcsRoot: TCVcsRoot

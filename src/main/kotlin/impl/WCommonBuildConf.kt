@@ -1,6 +1,6 @@
 package impl
 
-import gen.searchQL.*
+import gen.searchQL.objects.*
 import teamCity.objects.TCBuildConf
 
 abstract class WCommonBuildConf : CommonBuildConf {
