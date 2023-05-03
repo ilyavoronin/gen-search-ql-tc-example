@@ -43,4 +43,8 @@ class WTemplate(private val template: TCTemplate) : Template {
     override fun getFeature(): List<Feature> {
         return template.features.map{ WFeature(it) }
     }
+
+    override fun parentProject(): List<Project> {
+        return listOf()
+    }
 }

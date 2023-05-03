@@ -35,4 +35,8 @@ class WProject(private val tcProject: TCProject) : Project {
     override fun getTemplate(): List<Template> {
         return tcProject.templates.map { WTemplate(it)}
     }
+
+    override fun parentProject(): List<Project> {
+        return listOf()
+    }
 }
