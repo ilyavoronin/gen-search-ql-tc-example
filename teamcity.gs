@@ -12,7 +12,7 @@ source object Project {
 	feature: Feature [many]
 	vcs_root: VcsRoot [many, rev]
 	archived: Archived
-    project: Project [many, rev]
+    ref project: Project [many, rev]
     build_conf: BuildConf [many, rev]
     template: Template [many, rev]
 }
@@ -44,7 +44,7 @@ filter SnapshotDependency : bool {
 }
 
 source object Template {
-	inheritedBy: BuildConf [rev, many]
+	ref inheritedBy: BuildConf [rev, many]
 	id: Id [source]
 	name: Name [source]
 	trigger: Trigger [many]
