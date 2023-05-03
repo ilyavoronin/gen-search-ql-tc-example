@@ -3,6 +3,7 @@ package teamCity.objects
 
 class TCProject(
     var id: String,
+    var parentId: String?,
     var name: String = id,
     var buildConfs: List<TCBuildConf> = listOf(),
     var templates: List<TCTemplate> = listOf(),

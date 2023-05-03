@@ -2,6 +2,7 @@ package teamCity.objects
 
 class TCBuildConf(
     val id: String,
+    val parentId: String,
     val name: String,
     var triggers: List<TCTrigger> = listOf(),
     var steps: List<TCStep> = listOf(),
