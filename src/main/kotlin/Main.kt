@@ -5,7 +5,11 @@ import teamCity.server.TeamCityServer
 
 fun main() {
     val query = """
-        find buildConf in project (id ("project3"))
+         find buildConf
+         in 
+             project (id ("project0")) 
+             or
+             project (id ("project3"))
     """.trimIndent()
 
     val server = TeamCityServer(10)

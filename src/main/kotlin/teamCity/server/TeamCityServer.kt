@@ -8,7 +8,7 @@ class TeamCityServer(cntProjects: Int) {
     val buildConfs: HashMap<String, TCBuildConf> = HashMap()
     val vcsRoots: HashMap<String, TCVcsRoot> = HashMap()
     val templates: HashMap<String, TCTemplate> = HashMap()
-    private var currId = 0
+    private val idsMap = mutableMapOf<String, Int>()
 
     val pCntBuildConfs = 10
     val pCntTemplates = 10
@@ -19,36 +19,35 @@ class TeamCityServer(cntProjects: Int) {
 
     val cCntTriggers = 10
     val cCntParams = 10
-    val cCntFeatures = 10
 
     init {
         for (i in 0..cntProjects) {
-
+            genProject(0, null)
         }
     }
 
     fun genProject(depth: Int, parentId: String?): TCProject {
         val projectId = genId("project")
-        val bcs = (0..pCntBuildConfs).map {
+        val bcs = (0 until pCntBuildConfs).map {
             genBuildConf(projectId)
         }
-        val templates = (0..pCntTemplates).map {
+        val templates = (0 until pCntTemplates).map {
             genTemplate(projectId)
         }
 
-        val vcsRoots = (0..pCntVcsRoots).map {
+        val vcsRoots = (0 until pCntVcsRoots).map {
             genVcsRoot(projectId, "p")
         }
 
         val subprojects = if (depth < maxDepth) {
-            (0..cntSubprojects).map {
+            (0 until cntSubprojects).map {
                 genProject(depth + 1, projectId)
             }
         } else {
             listOf()
         }
 
-        val features = (0..pCntFeatures).map {
+        val features = (0 until pCntFeatures).map {
             TCFeature("feature1")
         }
 
@@ -69,13 +68,18 @@ class TeamCityServer(cntProjects: Int) {
     }
 
     fun genId(prefix: String): String {
-        return "$prefix${currId++}"
+        if (!idsMap.containsKey(prefix)) {
+            idsMap[prefix] = 0
+        }
+        val id = idsMap[prefix]
+        idsMap[prefix] = idsMap[prefix]!! + 1
+        return "$prefix$id"
     }
 
     fun genBuildConf(parentId: String): TCBuildConf {
         val confId = genId("conf")
 
-        val triggers = (0..cCntTriggers).map {
+        val triggers = (0 until cCntTriggers).map {
             TCTrigger(if (confId.last() in listOf('2', '4', '6', '8', '0'))  {
                 "scheduled"
             } else {
@@ -83,7 +87,7 @@ class TeamCityServer(cntProjects: Int) {
             })
         }
 
-        val steps = (0..cCntTriggers).map {
+        val steps = (0 until cCntTriggers).map {
             TCStep(if (confId.last() in listOf('2', '4', '6', '8', '0')) {
                 "golang"
             } else {
@@ -91,15 +95,15 @@ class TeamCityServer(cntProjects: Int) {
             })
         }
 
-        val params = (0..cCntParams).map { i ->
+        val params = (0 until cCntParams).map { i ->
             TCParam("name$i","val$i")
         }
 
-        val vcsRoots = (0..pCntVcsRoots).map { i ->
+        val vcsRoots = (0 until pCntVcsRoots).map { i ->
             genVcsRoot(confId, "c")
         }
 
-        val features = (0..pCntFeatures).map { i ->
+        val features = (0 until pCntFeatures).map { i ->
             TCFeature(if (confId.last() in listOf('2', '4', '6', '8', '0')) {
                 "feature1"
             } else {
@@ -128,7 +132,7 @@ class TeamCityServer(cntProjects: Int) {
     fun genTemplate(parentId: String): TCTemplate {
         val templateId = genId("conf")
 
-        val triggers = (0..cCntTriggers).map {
+        val triggers = (0 until cCntTriggers).map {
             TCTrigger(if (templateId.last() in listOf('2', '4', '6', '8', '0'))  {
                 "scheduled"
             } else {
@@ -136,7 +140,7 @@ class TeamCityServer(cntProjects: Int) {
             })
         }
 
-        val steps = (0..cCntTriggers).map {
+        val steps = (0 until cCntTriggers).map {
             TCStep(if (templateId.last() in listOf('2', '4', '6', '8', '0')) {
                 "golang"
             } else {
@@ -144,15 +148,15 @@ class TeamCityServer(cntProjects: Int) {
             })
         }
 
-        val params = (0..cCntParams).map { i ->
+        val params = (0 until cCntParams).map { i ->
             TCParam("name$i","val$i")
         }
 
-        val vcsRoots = (0..pCntVcsRoots).map { i ->
+        val vcsRoots = (0 until pCntVcsRoots).map { i ->
             genVcsRoot(templateId, "c")
         }
 
-        val features = (0..pCntFeatures).map { i ->
+        val features = (0 until pCntFeatures).map { i ->
             TCFeature(if (templateId.last() in listOf('2', '4', '6', '8', '0')) {
                 "feature1"
             } else {
