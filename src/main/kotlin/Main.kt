@@ -1,20 +1,35 @@
 import gen.searchQL.exec.ExecutionEngine
 import impl.ObjSourceImpl
 import impl.WBuildConf
+import impl.WObject
 import teamCity.server.TeamCityServer
 
 fun main() {
-    val query = """
-         find buildConf
-         in 
-             project (id ("project0")) 
-             or
-             project (id ("project3"))
-    """.trimIndent()
+    val queries = listOf("""
+             find buildConf
+             in 
+                 project (id ("project0")) 
+                 or
+                 project (id ("project1"))
+             with trigger (type ("scheduled"))
+         """.trimIndent(),
+
+        """
+            find trigger
+            in 
+                 project (id ("project0"))
+                 and
+                 buildConf (id ("conf0"))
+        """.trimIndent()
+    )
 
     val server = TeamCityServer(10)
     val exec = ExecutionEngine(ObjSourceImpl(server))
-    val res = exec.execute(query) as List<WBuildConf>
-    println(res.joinToString(", ") { it.buildConf.id })
-    println("OK")
+
+    for ((i, q) in queries.withIndex()) {
+        println("Result $i")
+        val res = exec.execute(q) as List<WObject>
+        println(res.joinToString(", ") { it.string() })
+        println("OK")
+    }
 }
