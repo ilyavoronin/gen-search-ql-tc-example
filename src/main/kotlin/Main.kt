@@ -5,7 +5,8 @@ import impl.WObject
 import teamCity.server.TeamCityServer
 
 fun main() {
-    val queries = listOf("""
+    val queries = listOf(
+        """
              find buildConf
              in 
                  project (id ("project0")) 
@@ -18,8 +19,50 @@ fun main() {
             find trigger
             in 
                  project (id ("project0"))
-                 and
+                 or
                  buildConf (id ("conf0"))
+        """.trimIndent(),
+
+        """
+            find id in project (id ("project0")) -> {build_conf or template}
+        """.trimIndent(),
+
+        """
+            find id in project (id ("project0")) -> {build_conf->{id} or template->{id}}
+        """.trimIndent(),
+
+        """
+            find id in project( feature( type("unique_type") ) ) -> {id}
+        """.trimIndent(),
+
+        """
+            find trigger
+            in
+            	project
+            	(
+            		name ("abacaba")
+            		and
+            		(build_conf (name ("T1")) or not build_conf (name ("T2")) )
+            	) -> {
+            		build_conf
+            		(
+            		   name ("abacaba")
+            		) and
+            		template
+            		(
+            		   id ("qwerty")
+            		)
+            	}.{type ("1")}
+
+            	or 
+
+            	project 
+            	(
+            	   name ("aba2")
+            	).{type ("2")}
+            
+            
+            with type ("scheduled")
         """.trimIndent()
     )
 

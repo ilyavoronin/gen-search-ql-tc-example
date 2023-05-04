@@ -9,7 +9,7 @@ class TCProject(
     var templates: List<TCTemplate> = listOf(),
     var vcsRoots: List<TCVcsRoot> = listOf(),
     var subprojects: List<TCProject> = listOf(),
-    var features: List<TCFeature> = listOf(),
+    var features: MutableList<TCFeature> = mutableListOf(),
     var archived: Boolean = false,
 ) {
 }

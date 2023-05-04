@@ -2,9 +2,13 @@ package impl
 
 import gen.searchQL.objects.*
 
-class WId(private val id: String) : Id {
+class WId(private val id: String) : Id, WObject {
     override fun getString(): String {
         return id
+    }
+
+    override fun string(): String {
+        return "Id($id)"
     }
 }
 

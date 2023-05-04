@@ -5,14 +5,19 @@ import teamCity.objects.*
 class TeamCityServer(cntProjects: Int) {
 
     val projects: HashMap<String, TCProject> = HashMap()
+    val projectByName: HashMap<String, TCProject> = HashMap()
     val buildConfs: HashMap<String, TCBuildConf> = HashMap()
+    val buildConfByName: HashMap<String, TCBuildConf> = HashMap()
     val vcsRoots: HashMap<String, TCVcsRoot> = HashMap()
+    val vcsRootByName: HashMap<String, TCVcsRoot> = HashMap()
     val templates: HashMap<String, TCTemplate> = HashMap()
+    val templateByName: HashMap<String, TCTemplate> = HashMap()
+
     private val idsMap = mutableMapOf<String, Int>()
 
     val pCntBuildConfs = 10
     val pCntTemplates = 10
-    val pCntVcsRoots = 10
+    val pCntVcsRoots = 1
     val pCntFeatures = 10
     val cntSubprojects = 3
     val maxDepth = 3
@@ -24,6 +29,8 @@ class TeamCityServer(cntProjects: Int) {
         for (i in 0..cntProjects) {
             genProject(0, null)
         }
+
+        projects["project50"]!!.features.add(TCFeature("unique_type"))
     }
 
     fun genProject(depth: Int, parentId: String?): TCProject {
@@ -59,10 +66,11 @@ class TeamCityServer(cntProjects: Int) {
             bcs, templates,
             vcsRoots,
             subprojects,
-            features,
+            features.toMutableList(),
             projectId.endsWith("5")
         )
         projects[projectId] = newProject
+        projectByName[newProject.name] = newProject
 
         return newProject
     }
@@ -125,12 +133,13 @@ class TeamCityServer(cntProjects: Int) {
         )
 
         buildConfs[confId] = newConf
+        buildConfByName[newConf.name] = newConf
 
         return newConf
     }
 
     fun genTemplate(parentId: String): TCTemplate {
-        val templateId = genId("conf")
+        val templateId = genId("temp")
 
         val triggers = (0 until cCntTriggers).map {
             TCTrigger(if (templateId.last() in listOf('2', '4', '6', '8', '0'))  {
@@ -167,6 +176,7 @@ class TeamCityServer(cntProjects: Int) {
         val newTemp = TCTemplate(templateId, parentId, templateId.capitalize(), triggers, steps, params, mapOf(), mapOf(), vcsRoots, features)
 
         templates[templateId] = newTemp
+        templateByName[newTemp.name] = newTemp
 
         return newTemp
     }
@@ -177,6 +187,7 @@ class TeamCityServer(cntProjects: Int) {
         val newVcs = TCVcsRoot(vcsId, parentId, type, vcsId.capitalize(), listOf(), "git", listOf("rule1", "rule2"))
 
         vcsRoots[vcsId] = newVcs
+        vcsRootByName[newVcs.name] = newVcs
 
         return newVcs
     }

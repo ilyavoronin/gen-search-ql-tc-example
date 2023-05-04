@@ -19,7 +19,7 @@ class ObjSourceImpl(val tcServer: TeamCityServer) : ObjectsSource {
     }
 
     override fun getProjectByName(v: ValueObject): List<Project> {
-        throw RuntimeException("Not implemented")
+        return tcServer.projectByName[(v as ValueObject.String).v]?.let { listOf(WProject(it)) } ?: emptyList()
     }
 
     override fun getAllBuildConf(): List<BuildConf> {
@@ -31,7 +31,7 @@ class ObjSourceImpl(val tcServer: TeamCityServer) : ObjectsSource {
     }
 
     override fun getBuildConfByName(v: ValueObject): List<BuildConf> {
-        throw RuntimeException("Not implemented")
+        return tcServer.buildConfByName[(v as ValueObject.String).v]?.let { listOf(WBuildConf(it)) } ?: emptyList()
     }
 
     override fun getAllTemplate(): List<Template> {
@@ -43,7 +43,7 @@ class ObjSourceImpl(val tcServer: TeamCityServer) : ObjectsSource {
     }
 
     override fun getTemplateByName(v: ValueObject): List<Template> {
-        throw RuntimeException("Not implemented")
+        return tcServer.templateByName[(v as ValueObject.String).v]?.let { listOf(WTemplate(it)) } ?: emptyList()
     }
 
     override fun getAllVcsRoot(): List<VcsRoot> {
