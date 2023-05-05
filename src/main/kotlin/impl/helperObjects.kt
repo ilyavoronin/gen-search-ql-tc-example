@@ -5,14 +5,13 @@ import gen.searchQL.objects.*
 import java.util.*
 
 
-class WString(val s: String): StringBuiltIn {
+class WString(val s: String): StringBuiltIn, WObjectWithMetrics("string") {
     override fun getString(): String {
         return s
     }
-
 }
 
-class WId(private val id: String) : Id, WObject {
+class WId(private val id: String) : Id, WObject, WObjectWithMetrics("Id") {
     override fun getString(): String {
         return id
     }
@@ -30,7 +29,7 @@ class WId(private val id: String) : Id, WObject {
     }
 }
 
-class WName(private val name: String) : Name {
+class WName(private val name: String) : Name, WObjectWithMetrics("Name") {
     override fun getString(): String {
         return name
     }
@@ -44,13 +43,13 @@ class WName(private val name: String) : Name {
     }
 }
 
-class WArchived(private val v: Boolean) : Archived {
+class WArchived(private val v: Boolean) : Archived, WObjectWithMetrics("Archived") {
     override fun getBool(): Boolean {
         return v
     }
 }
 
-class WParam(private val name: String, private val value: String): Param {
+class WParam(private val name: String, private val value: String): Param, WObjectWithMetrics("Id") {
     override fun getName(): WString {
         return WString(name)
     }
@@ -68,7 +67,7 @@ class WParam(private val name: String, private val value: String): Param {
     }
 }
 
-class WOption(private val name: String, private val value: String): Option {
+class WOption(private val name: String, private val value: String): Option, WObjectWithMetrics("Option") {
     override fun getName(): WString {
         return WString(name)
     }
@@ -86,7 +85,7 @@ class WOption(private val name: String, private val value: String): Option {
     }
 }
 
-class WRule(private val rule: String) : Rule {
+class WRule(private val rule: String) : Rule, WObjectWithMetrics("Rule") {
     override fun getString(): String {
         return rule
     }
@@ -100,7 +99,7 @@ class WRule(private val rule: String) : Rule {
     }
 }
 
-class WType(private val t: String): Type {
+class WType(private val t: String): Type, WObjectWithMetrics("Type") {
     override fun getString(): String {
         return t
     }

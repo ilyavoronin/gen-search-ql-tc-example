@@ -30,7 +30,7 @@ interface CommonBuildConf {
 
 source object BuildConf: CommonBuildConf
 
-object Dependency->CommonBuildConf {
+filter Dependency->CommonBuildConf {
 	artifact: ArtifactDependency [many]
 	snapshot: SnapshotDependency
 }

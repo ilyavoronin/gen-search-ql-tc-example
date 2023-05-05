@@ -1,11 +1,12 @@
 import gen.searchQL.exec.ExecutionEngine
 import impl.ObjSourceImpl
-import impl.WBuildConf
 import impl.WObject
-import teamCity.server.TeamCityServer
+import teamCity.server.tcServer
+import kotlin.system.measureTimeMillis
 
 fun main() {
     val queries = listOf(
+        //0
         """
              find buildConf
              in 
@@ -15,6 +16,7 @@ fun main() {
              with trigger (type ("scheduled"))
          """.trimIndent(),
 
+        //1
         """
             find trigger
             in 
@@ -23,18 +25,23 @@ fun main() {
                  buildConf (id ("conf0"))
         """.trimIndent(),
 
+
+        //2
         """
             find id in project (id ("project0")) -> {build_conf or template}
         """.trimIndent(),
 
+        //3
         """
             find id in project (id ("project0")) -> {build_conf->{id} or template->{id}}
         """.trimIndent(),
 
+        //4
         """
             find id in project( feature( type("unique_type") ) ) -> {id}
         """.trimIndent(),
 
+        //5
         """
             find trigger
             in
@@ -65,15 +72,18 @@ fun main() {
             with type ("scheduled")
         """.trimIndent(),
 
+        //6
         """
             find trigger in project( id("project0") ) and project( id("project0") ) -> { build_conf( id("conf0") ) }
              with type("scheduled")
         """.trimIndent(),
 
+        //7
         """
             find trigger in buildConf( param( name("conf2_name0") ) )
         """.trimIndent(),
 
+        //8
         """
             find trigger in project( id("project0") ) and project( id("project0") ) -> {
         
@@ -90,10 +100,12 @@ fun main() {
             with type("scheduled")
         """.trimIndent(),
 
+        //9
         """
             find trigger in buildConf( id("conf50") )
         """.trimIndent(),
 
+        //10
         """
             find trigger in project( feature( type("feature1") ) ) and (
             project( id("project0") ) -> {
@@ -125,13 +137,19 @@ fun main() {
         """.trimIndent()
     )
 
-    val server = TeamCityServer(10)
-    val exec = ExecutionEngine(ObjSourceImpl(server))
+    val exec = ExecutionEngine(ObjSourceImpl(tcServer))
+
+    // warm-up query
+    exec.execute("""find id in project( id("project0") ) -> {id}""")
 
     for ((i, q) in queries.withIndex()) {
-        println("Result $i")
-        val res = exec.execute(q) as List<WObject>
-        println(res.joinToString(", ") { it.string() })
-        println("OK")
+        tcServer.clearMetrics()
+        var res: List<WObject>
+        val time = measureTimeMillis {
+            res = exec.execute(q) as List<WObject>
+        }
+        println("Case $i. $time ms")
+        println("Result(${res.joinToString(", ") { it.string() }})")
+        println("Metrics: ${tcServer.getMetricsStr()}\n")
     }
 }

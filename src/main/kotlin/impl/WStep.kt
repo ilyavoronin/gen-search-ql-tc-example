@@ -3,7 +3,7 @@ package impl
 import gen.searchQL.objects.*
 import teamCity.objects.TCStep
 
-class WStep(val step: TCStep) : Step {
+class WStep(val step: TCStep) : Step, WObjectWithMetrics("Step") {
     override fun getType(): Type {
         return WType(step.type)
     }

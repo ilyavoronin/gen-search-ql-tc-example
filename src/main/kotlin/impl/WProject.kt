@@ -4,7 +4,7 @@ import gen.searchQL.objects.*
 import teamCity.objects.TCProject
 import teamCity.server.TeamCityServer
 
-class WProject(private val tcProject: TCProject, val server: TeamCityServer) : Project {
+class WProject(private val tcProject: TCProject, val server: TeamCityServer) : Project, WObjectWithMetrics("Project") {
     override fun getId(): Id {
         return WId(tcProject.id)
     }

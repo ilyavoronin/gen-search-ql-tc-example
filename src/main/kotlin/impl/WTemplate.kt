@@ -3,7 +3,7 @@ package impl
 import gen.searchQL.objects.*
 import teamCity.objects.TCTemplate
 
-class WTemplate(private val template: TCTemplate) : Template {
+class WTemplate(private val template: TCTemplate) : Template, WObjectWithMetrics("Template") {
     override fun getInheritedBy(): List<BuildConf> {
         return listOf()
     }

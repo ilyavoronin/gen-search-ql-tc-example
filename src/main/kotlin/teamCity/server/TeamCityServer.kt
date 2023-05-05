@@ -2,6 +2,8 @@ package teamCity.server
 
 import teamCity.objects.*
 
+val tcServer = TeamCityServer(10)
+
 class TeamCityServer(cntProjects: Int) {
 
     val projects: HashMap<String, TCProject> = HashMap()
@@ -25,12 +27,27 @@ class TeamCityServer(cntProjects: Int) {
     val cCntTriggers = 3
     val cCntParams = 10
 
+    val metrics: MutableMap<String, Int> = mutableMapOf()
+
     init {
         for (i in 0..cntProjects) {
             genProject(0, null)
         }
 
         projects["project50"]!!.features.add(TCFeature(genIntId("feature"),"unique_type"))
+    }
+
+    fun objCreated(type: String) {
+        val res = metrics.getOrPut(type) { 0 }
+        metrics[type] = res + 1
+    }
+
+    fun clearMetrics() {
+        metrics.clear()
+    }
+
+    fun getMetricsStr(): String {
+        return metrics.toList().joinToString { "${it.first}: ${it.second}" }
     }
 
     fun genProject(depth: Int, parentId: String?): TCProject {

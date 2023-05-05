@@ -3,7 +3,7 @@ package impl
 import gen.searchQL.objects.*
 import teamCity.objects.TCTrigger
 
-class WTrigger(val trig: TCTrigger) : Trigger, WObject {
+class WTrigger(val trig: TCTrigger) : Trigger, WObject, WObjectWithMetrics("Trigger") {
     override fun getType(): Type {
         return WType(trig.type)
     }

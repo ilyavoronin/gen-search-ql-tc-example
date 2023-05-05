@@ -4,7 +4,7 @@ import gen.searchQL.*
 import teamCity.objects.TCVcsRoot
 import gen.searchQL.objects.*
 
-abstract class WCommonVcsRoot : CommonVcsRoot {
+abstract class WCommonVcsRoot(typeName: String) : CommonVcsRoot, WObjectWithMetrics(typeName) {
     abstract val vcsRoot: TCVcsRoot
 
     override fun getId(): Id {

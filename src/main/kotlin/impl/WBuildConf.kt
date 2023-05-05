@@ -6,7 +6,7 @@ import gen.searchQL.objects.Template
 import teamCity.objects.TCBuildConf
 import teamCity.server.TeamCityServer
 
-class WBuildConf(override val buildConf: TCBuildConf, val server: TeamCityServer): WCommonBuildConf(), BuildConf, WObject {
+class WBuildConf(override val buildConf: TCBuildConf, val server: TeamCityServer): WCommonBuildConf("BuildConf"), BuildConf, WObject {
     override fun parentProject(): List<Project> {
         return listOf(WProject(server.projects[buildConf.parentId]!!, server))
     }

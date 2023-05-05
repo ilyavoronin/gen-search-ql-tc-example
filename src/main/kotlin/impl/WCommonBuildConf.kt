@@ -3,7 +3,7 @@ package impl
 import gen.searchQL.objects.*
 import teamCity.objects.TCBuildConf
 
-abstract class WCommonBuildConf : CommonBuildConf {
+abstract class WCommonBuildConf(typeName: String): CommonBuildConf, WObjectWithMetrics(typeName) {
     abstract val buildConf: TCBuildConf
 
     override fun getId(): Id {

@@ -7,7 +7,7 @@ import teamCity.objects.TCSnapshotDependency
 
 class WDependency(private val artifactDeps: List<TCArtifactDependency>, private val snapshotDep: TCSnapshotDependency?,
                   override val buildConf: TCBuildConf
-): WCommonBuildConf(), Dependency {
+): WCommonBuildConf("Dep"), Dependency {
     override fun getArtifact(): List<ArtifactDependency> {
         return artifactDeps.map { WArtitifactDep(it) }
     }
