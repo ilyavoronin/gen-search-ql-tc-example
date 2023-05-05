@@ -8,7 +8,15 @@ class WTrigger(val trig: TCTrigger) : Trigger, WObject {
         return WType(trig.type)
     }
 
+    override fun equals(other: Any?): Boolean {
+        return other is WTrigger && other.trig.id == trig.id
+    }
+
+    override fun hashCode(): Int {
+        return trig.id.hashCode()
+    }
+
     override fun string(): String {
-        return "Trigger(${trig.type})"
+        return "Trigger(${trig.id})"
     }
 }

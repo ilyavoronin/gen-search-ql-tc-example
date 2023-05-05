@@ -1,4 +1,4 @@
 package teamCity.objects
 
-class TCFeature(val type: String) {
+class TCFeature(val id: Int, val type: String) {
 }

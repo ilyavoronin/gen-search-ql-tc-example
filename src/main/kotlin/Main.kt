@@ -63,6 +63,65 @@ fun main() {
             
             
             with type ("scheduled")
+        """.trimIndent(),
+
+        """
+            find trigger in project( id("project0") ) and project( id("project0") ) -> { build_conf( id("conf0") ) }
+             with type("scheduled")
+        """.trimIndent(),
+
+        """
+            find trigger in buildConf( param( name("conf2_name0") ) )
+        """.trimIndent(),
+
+        """
+            find trigger in project( id("project0") ) and project( id("project0") ) -> {
+        
+                build_conf( id("conf0") ) and build_conf( name("Conf0") ) 
+                or 
+                build_conf( id("conf1") ) and build_conf( name("Conf1") ) 
+                or
+                build_conf( id("conf2") ) and build_conf( name("Conf2") ) and build_conf( name("Conf2") ) and build_conf( param( name("conf2_name0") ) )
+                or
+                build_conf( id("conf3") ) and build_conf( name("Conf5") )
+                or 
+                build_conf( id("conf50") )
+            }
+            with type("scheduled")
+        """.trimIndent(),
+
+        """
+            find trigger in buildConf( id("conf50") )
+        """.trimIndent(),
+
+        """
+            find trigger in project( feature( type("feature1") ) ) and (
+            project( id("project0") ) -> {
+        
+                build_conf( id("conf0") ) and build_conf( name("Conf0") ) 
+                or 
+                build_conf( id("conf1") ) and build_conf( name("Conf1") ) 
+                or
+                build_conf( id("conf2") ) and build_conf( name("Conf2") ) and build_conf( name("Conf2") ) and build_conf( param( name("conf2_name0") ) )
+                or
+                build_conf( id("conf3") ) and build_conf( name("Conf5") )
+                or 
+                build_conf( id("conf50") )
+            } or 
+            project( feature( type("feature1") ) ) -> {
+        
+                build_conf( id("conf0") ) and build_conf( name("Conf0") ) 
+                or 
+                build_conf( id("conf1") ) and build_conf( name("Conf1") ) 
+                or
+                build_conf( id("conf2") ) and build_conf( name("Conf2") ) and build_conf( name("Conf2") ) and build_conf( param( name("conf2_name0") ) or id("conf10") )
+                or
+                build_conf( id("conf3") ) and build_conf( name("Conf5") )
+                or 
+                build_conf( id("conf50") )
+            }
+            )
+            with type("scheduled")
         """.trimIndent()
     )
 

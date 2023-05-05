@@ -47,4 +47,12 @@ class WTemplate(private val template: TCTemplate) : Template {
     override fun parentProject(): List<Project> {
         return listOf()
     }
+
+    override fun equals(other: Any?): Boolean {
+        return other is WTemplate && other.template.id == template.id
+    }
+
+    override fun hashCode(): Int {
+        return template.id.hashCode()
+    }
 }

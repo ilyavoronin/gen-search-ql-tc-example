@@ -1,5 +1,5 @@
 package teamCity.objects
 
-class TCStep(val type: String) {
+class TCStep(val id: Int, val type: String) {
 
 }

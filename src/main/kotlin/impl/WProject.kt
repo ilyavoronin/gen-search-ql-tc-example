@@ -2,8 +2,9 @@ package impl
 
 import gen.searchQL.objects.*
 import teamCity.objects.TCProject
+import teamCity.server.TeamCityServer
 
-class WProject(private val tcProject: TCProject) : Project {
+class WProject(private val tcProject: TCProject, val server: TeamCityServer) : Project {
     override fun getId(): Id {
         return WId(tcProject.id)
     }
@@ -25,11 +26,11 @@ class WProject(private val tcProject: TCProject) : Project {
     }
 
     override fun getProject(): List<Project> {
-        return tcProject.subprojects.map { WProject(it) }
+        return tcProject.subprojects.map { WProject(it, server) }
     }
 
     override fun getBuild_conf(): List<BuildConf> {
-        return tcProject.buildConfs.map { WBuildConf(it) }
+        return tcProject.buildConfs.map { WBuildConf(it, server) }
     }
 
     override fun getTemplate(): List<Template> {
@@ -38,5 +39,13 @@ class WProject(private val tcProject: TCProject) : Project {
 
     override fun parentProject(): List<Project> {
         return listOf()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return other is WProject && other.tcProject.id == tcProject.id
+    }
+
+    override fun hashCode(): Int {
+        return tcProject.id.hashCode()
     }
 }

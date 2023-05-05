@@ -11,27 +11,27 @@ import java.lang.RuntimeException
 
 class ObjSourceImpl(val tcServer: TeamCityServer) : ObjectsSource {
     override fun getAllProject(): List<Project> {
-        return tcServer.projects.values.map { WProject(it) }
+        return tcServer.projects.values.map { WProject(it, tcServer) }
     }
 
     override fun getProjectById(v: ValueObject): List<Project> {
-        return tcServer.projects[(v as ValueObject.String).v]?.let { listOf(WProject(it)) } ?: emptyList()
+        return tcServer.projects[(v as ValueObject.String).v]?.let { listOf(WProject(it, tcServer)) } ?: emptyList()
     }
 
     override fun getProjectByName(v: ValueObject): List<Project> {
-        return tcServer.projectByName[(v as ValueObject.String).v]?.let { listOf(WProject(it)) } ?: emptyList()
+        return tcServer.projectByName[(v as ValueObject.String).v]?.let { listOf(WProject(it, tcServer)) } ?: emptyList()
     }
 
     override fun getAllBuildConf(): List<BuildConf> {
-        return tcServer.buildConfs.values.map { WBuildConf(it) }
+        return tcServer.buildConfs.values.map { WBuildConf(it, tcServer) }
     }
 
     override fun getBuildConfById(v: ValueObject): List<BuildConf> {
-        return tcServer.buildConfs[(v as ValueObject.String).v]?.let { listOf(WBuildConf(it)) } ?: emptyList()
+        return tcServer.buildConfs[(v as ValueObject.String).v]?.let { listOf(WBuildConf(it, tcServer)) } ?: emptyList()
     }
 
     override fun getBuildConfByName(v: ValueObject): List<BuildConf> {
-        return tcServer.buildConfByName[(v as ValueObject.String).v]?.let { listOf(WBuildConf(it)) } ?: emptyList()
+        return tcServer.buildConfByName[(v as ValueObject.String).v]?.let { listOf(WBuildConf(it, tcServer)) } ?: emptyList()
     }
 
     override fun getAllTemplate(): List<Template> {
