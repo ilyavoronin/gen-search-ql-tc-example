@@ -21,7 +21,7 @@ class WTemplate(private val template: TCTemplate) : Template, WObjectWithMetrics
     }
 
     override fun getStep(): List<Step> {
-        return template.steps.map { WStep(it) }
+        return template.steps.map { WStep(it, null, template) }
     }
 
     override fun getParam(resolved: Boolean): List<Param> {

@@ -21,7 +21,7 @@ interface CommonBuildConf {
 	id: Id [source]
 	name: Name [source]
 	trigger: Trigger [many] (withInherited)
-	step: Step [many] (withInherited)
+	step: Step [many, rev] (withInherited)
 	param: Param [many] (withInherited, resolved)
 	dep: Dependency [many]
 	vcs_entry: VcsRootEntry [many]
@@ -48,7 +48,7 @@ source object Template {
 	id: Id [source]
 	name: Name [source]
 	trigger: Trigger [many]
-	step: Step [many]
+	step: Step [many, rev]
 	param: Param [many] (resolved)
 	dep: Dependency [many]
 	vcs_entry: VcsRootEntry [many]

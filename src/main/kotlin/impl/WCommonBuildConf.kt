@@ -19,7 +19,7 @@ abstract class WCommonBuildConf(typeName: String): CommonBuildConf, WObjectWithM
     }
 
     override fun getStep(withInherited: Boolean): List<Step> {
-        return buildConf.steps.map { WStep(it) }
+        return buildConf.steps.map { WStep(it, buildConf, null) }
     }
 
     override fun getParam(withInherited: Boolean, resolved: Boolean): List<Param> {
